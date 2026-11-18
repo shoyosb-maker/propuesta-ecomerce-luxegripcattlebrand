@@ -1,0 +1,747 @@
+================================================================================
+PROPUESTA COMERCIAL · LUXEGRIP CATTLE BRAND
+E-COMMERCE 3D + CONFIGURADOR DE MARCA
+================================================================================
+Documento de estado del proyecto
+Fecha: 18 de noviembre de 2026 (actualización: 11 capítulos, card ampliada e
+       iconos de plan)
+Carpeta: C:\Users\User1\Desktop\propuesta luxegripcattlebrand
+================================================================================
+
+
+1. RESUMEN
+--------------------------------------------------------------------------------
+Propuesta comercial completa de una tienda en línea con configuradores 3D para
+LuxeGrip Cattle Brand, construida sobre el proyecto de referencia "propuesta
+motos y partes de occidente" (mismo motor de escenas, mismo tipo de navegación,
+misma lógica de planes y cotizador).
+
+La propuesta está organizada en 11 CAPÍTULOS, siguiendo el orden del proyecto
+de referencia y adaptado a LuxeGrip:
+
+  01 · Inicio ............ portada, propuesta y cifras clave
+  02 · Finalidad ......... qué gana el cliente y qué gana la compañía
+  03 · Planes ............ Esencial, Intermedio, Élite y combo Agéntico
+  04 · Cotizador ......... calculadora con resumen pegajoso
+  05 · Desglose .......... cada peso justificado, plan por plan
+  06 · Comparativa ....... matriz de lo que incluye cada plan + líneas de
+                           producto (ganado, caballos, cachas, hebillas,
+                           accesorios, dashboard y pasarela)
+  07 · Precio justo ...... comparación con el mercado colombiano 2026
+  08 · Mantenimiento ..... mensualidades, SLA y periodo de estabilización
+  09 · Infraestructura ... Vercel, base de datos, dominio y consumo de IA
+  10 · Portafolio ........ muestras reales desplegadas
+  11 · Contacto .......... WhatsApp, correo y condiciones
+
+Los capítulos 05, 06, 07, 08 y 09 conservan los videos de transición (escena 03,
+04, 06, 08 y 01): el video abre el capítulo, retiene el scroll mientras corre y
+después entra el título y el contenido.
+
+Estado general: PROPUESTA NAVEGABLE Y FUNCIONANDO. Falta únicamente contenido
+definitivo del cliente y los datos comerciales que dependen de él (punto 7).
+
+
+2. QUÉ SE ENTREGÓ
+--------------------------------------------------------------------------------
+  index.html                  Landing principal (11 capítulos)
+  planes/esencial.html        Detalle del Plan Esencial
+  planes/intermedio.html      Detalle del Plan Intermedio
+  planes/elite.html           Detalle del Plan Élite
+  planes/agentico.html        Detalle del Combo Élite + IA
+
+  css/styles.css              Estilos principales (tema western premium)
+  css/plan.css                Estilos de las páginas de detalle
+  css/plan-detalle.css        Capa interactiva de las páginas de detalle
+
+  js/loader.js                Pantalla de carga (video de marca)
+  js/hero-video.js            Portada: video → contenido → contadores
+  js/sequence.js              Escenas de sección: video fijo, texto y cards
+  js/deck.js                  Navegación por capítulos (puntos + flechas)
+  js/cotizador.js             Cotizador interactivo
+  js/portfolio.js             Portafolio con vista previa y mini tutorial
+  js/planes-fx.js             Humo de pantalla y estado de hover de las cards
+  js/plan-zoom.js             Card ampliada con fondo desenfocado
+  js/plan-detalle.js          Chispas, aparición al scroll y demo de chat
+  js/main.js                  Comportamiento base del documento
+
+  assets/video/               17 videos MP4 optimizados
+  assets/img/posters/         9 pósters JPG + loading-blur.jpg (fondo de la carga)
+  assets/img/planes/          4 artes + 3 texturas + 2 calaveras + humo
+  assets/img/portfolio/       9 capturas reales de proyectos
+  assets/img/brand/          Logo LuxeGrip: escudo, logo completo y favicons
+
+  imagenes scroll/videos/     Videos originales entregados (sin tocar)
+
+
+3. TRABAJO SOBRE LOS VIDEOS
+--------------------------------------------------------------------------------
+3.1 Diagnóstico
+
+  Originales: 1280 x 720, H.264, 24 fps, sin audio. 1.mp4 a 7.mp4 de 3,00 s
+  cada uno (1,75 a 2,05 MB) y loading.mp4 de 3,92 s. Cada transición traía DOS
+  subtítulos quemados: el módulo de origen y, tras un barrido de chispas, el
+  módulo siguiente.
+
+  Mapa de subtítulos leído fotograma a fotograma:
+    1.mp4  E-COMMERCE            ->  DEMARCACIÓN DE GANADO
+    2.mp4  DEMARCACIÓN DE GANADO ->  DEMARCACIÓN DE CABALLOS
+    3.mp4  DEMARCACIÓN DE CABALLOS -> CACHAS PARA PISTOLA
+    4.mp4  CACHAS PARA PISTOLA   ->  HEBILLAS VAQUERAS
+    5.mp4  HEBILLAS VAQUERAS     ->  ACCESORIOS Y DETALLES
+    6.mp4  ACCESORIOS Y DETALLES ->  DASHBOARD Y CONTROL
+    7.mp4  DASHBOARD Y CONTROL   ->  PASARELA DE PAGOS SEGURA
+
+3.2 Decisiones aplicadas
+
+  a) Se recortó la franja inferior (720 -> 616 px de alto) para eliminar el
+     subtítulo quemado: se pisaba consigo mismo durante el barrido y ahora los
+     títulos son HTML real (se pueden editar, traducir y leer). El encuadre
+     queda en 2,08:1, más cinematográfico.
+
+  b) 1.mp4 se dividió en dos tramos: 0,00–0,95 s para la portada (ralentizado a
+     1,88 s) y 0,95–3,00 s como transición de llegada. Los demás se usaron
+     completos desde 0,95 s (2,04 s), justo el tramo donde las chispas hacen el
+     cambio de módulo.
+
+  c) Cada tramo tiene su versión invertida (-rev.mp4) generada con el filtro
+     "reverse" de FFmpeg: es lo que hace que al subir el scroll la escena se
+     deshaga en lugar de repetirse.
+
+  d) Compresión H.264 perfil High, yuv420p, CRF 28 (26 en la pantalla de carga),
+     preset slow, faststart, sin audio y reducción de ruido suave (hqdn3d).
+     Total publicado: 7,25 MB en 17 archivos (los originales sumaban 15,4 MB).
+
+  e) Póster JPG por video (primer fotograma) en el atributo "poster": evita el
+     rectángulo negro mientras baja el archivo.
+
+  f) La pantalla de carga conserva el encuadre completo (logo, "CARGANDO..." y
+     barra de progreso) porque ahí el texto quemado es la marca, no un rótulo.
+     Se recortó a 3,00 s para no alargar la entrada.
+
+  g) Se descartó publicar WebM/VP9: con este material quedaba entre 10 % y 25 %
+     más pesado que el MP4 a igual calidad. Solo MP4, compatible con todos los
+     navegadores actuales.
+
+3.3 Uso por capítulo (con los 11 capítulos)
+
+  Capítulo             Video de avance        REV
+  -------------------  ---------------------  ---------------------
+  01 · Inicio          escena-01 (portada)    escena-01-rev
+  05 · Desglose        escena-03              escena-03-rev
+  06 · Comparativa     escena-04              escena-04-rev
+  07 · Precio justo    escena-06              escena-06-rev
+  08 · Mantenimiento   escena-08              escena-08-rev
+  09 · Infraestructura escena-01 (repetida)   escena-01-rev
+  Pantalla de carga    loading.mp4            —
+
+  Quedan disponibles sin usar (por si se quiere cambiar el fondo de algún
+  capítulo o sumar una escena): escena-02, escena-05 y escena-07. Se pueden
+  intercambiar sin tocar código: basta cambiar el nombre del archivo en el
+  data-src-mp4 de cada sección.
+
+3.4 Cómo se regeneran (si el cliente entrega videos nuevos)
+
+    ffmpeg -y -ss 0.95 -i "original.mp4" -t 2.05 \
+      -vf "crop=1280:616:0:0,hqdn3d=1.6:1.6:7:7" -an \
+      -c:v libx264 -profile:v high -level 4.0 -pix_fmt yuv420p -crf 28 \
+      -preset slow -movflags +faststart assets/video/escena-0X.mp4
+
+  Para la reversa se agrega ",reverse" al final del filtro. Si el video nuevo
+  no trae subtítulo quemado, se cambia "crop=1280:616:0:0" por
+  "crop=1280:720:0:0" (o se omite el crop).
+
+
+4. CÓMO FUNCIONA EL SITIO
+--------------------------------------------------------------------------------
+4.1 Pantalla de carga (se ve bien en cualquier pantalla)
+  Reproduce loading.mp4 —el video original, sin recortes ni recodificación—,
+  espera a que el documento esté listo y se desvanece (mínimo 0,9 s, máximo
+  9 s). Avisa con el evento "loaderdone" para que la portada arranque cuando el
+  overlay se retira. Con "prefers-reduced-motion" o conexión lenta se queda en
+  el último fotograma.
+
+  Encuadre responsivo: el video (1280x720) se muestra SIEMPRE completo dentro
+  de una placa 16:9 cuyo ancho se calcula con el alto y el ancho reales de la
+  ventana, así que en móvil vertical, tablet, 4:3, portátil, 16:9, 21:9 y 4K
+  queda centrado y a escala, sin recortes y sin franjas negras. Nunca se corta
+  el logo, el "CARGANDO..." ni la barra de cuerda que ya trae el propio video,
+  por eso no se añadió ninguna barra de progreso aparte (sería duplicada).
+  Alrededor, el mismo arte del video ampliado y desenfocado
+  (assets/img/posters/loading-blur.jpg, 2,8 KB) más un halo cálido rellena lo
+  que sobra de pantalla, y la placa lleva filete dorado de 1 px con sombra para
+  que se lea como un cartel intencional y no como un video suelto.
+  Medidas: padding fluido con clamp(), área segura (env(safe-area-inset-*))
+  para el notch, 100svh con 100vh de respaldo y tope de 1500 px de ancho para
+  no pixelar el video en monitores grandes. El video conserva object-fit
+  "contain": se agranda o se achica, nunca se recorta.
+
+4.2 Portada (capítulo 01)
+  Video de marca → al terminar aparecen título, texto y contadores animados
+  ($3.9M · 5 configuradores · ≤9 semanas · −80 %). Al subir desde el capítulo 02
+  la portada se rebobina con su video REV.
+
+4.2.1 Finalidad (capítulo 02)
+  Responde las dos preguntas que hizo el cliente antes de hablar de precios:
+  "¿cuál sería la finalidad para un cliente?" y "¿por qué deberíamos incluirlo
+  en la compañía?", pero SEPARANDO dos cosas que antes iban mezcladas:
+  1) TIENDA 3D (Esencial, Intermedio y Élite). Dos tarjetas enfrentadas —una
+     para el cliente final y otra para LuxeGrip— con tres y cuatro razones cada
+     una, más una franja con los tres cambios concretos: pedido personalizado
+     (de 3 llamadas a 1 configuración), atención (de horario de oficina a 24/7)
+     y cotización (de cálculo manual a automática con stock). Un rótulo
+     "Aplica a los planes Esencial · Intermedio · Élite" deja claro el alcance.
+  2) AGENTE DE IA (solo Plan Agéntico). Apartado propio, en turquesa, con el
+     sello "Solo Plan Agéntico": explica que el agente no reemplaza la tienda
+     sino que usa su catálogo, stock y cotizador para conversar y cerrar. Se
+     divide en dos columnas —lo que gana el cliente final (asesor de marca con
+     el logo o una foto, respuesta inmediata, cierre en el mismo chat,
+     explicación en palabras del oficio) y lo que gana la compañía (atiende sin
+     sumar turnos, no pierde el pedido de la noche, cotiza con el catálogo real
+     y respeta guardrails, deja información medible)—. Cierra con una nota de
+     contratación: el Agéntico lo incluye; en los otros tres planes se suma como
+     módulo de IA por $6.480.000.
+
+4.3 Capítulos con video (05 a 09)
+  Al entrar, el video de avance queda fijo a pantalla completa y corre una sola
+  vez (2,04 s) mientras el scroll se retiene. Al terminar entra la tarjeta de
+  texto y después las tarjetas de contenido. Al subir, corre el REV y el
+  capítulo vuelve a quedar armado.
+  Cada capítulo mide exactamente una pantalla; si el contenido no cabe (móvil),
+  se puede recorrer con scroll sin salir del capítulo.
+
+4.4 Capítulos comerciales (01 a 04, 10 y 11)
+  Son secciones de scroll largo dentro del mismo capítulo, con sub-bloques
+  separados por títulos (por ejemplo "Cada peso, justificado" y "Comparación con
+  el mercado" dentro de Desglose, ahora capítulos separados). El deck detiene
+  el scroll en los bordes de cada capítulo: para pasar al siguiente se usan los
+  puntos o las flechas.
+
+4.5 Navegación (deck)
+  - Puntos a la izquierda y flechas + contador a la derecha en TODAS las
+    pantallas. En móvil (hasta 860 px) se usa el mismo esquema vertical que en
+    escritorio, solo más chico: puntos de 5 a 7 px de diámetro con 7 px de
+    separación, flechas de 30 px y el contador "01 / 11" en vertical entre las
+    dos flechas. Antes en móvil los puntos se iban a una píldora abajo al centro
+    y el contador se ocultaba; se unificó para que se vea igual que en la web.
+  - Para que nada quede debajo de los puntos ni de las flechas, el contenido
+    deja 28 px a la izquierda y 44 px a la derecha en móvil (58 px por lado
+    desde 861 px).
+  - El scroll libre no cambia de capítulo: dentro de cada uno se recorre su
+    contenido y se detiene en los bordes.
+  - Funciona con teclado (flechas, Page Up/Down, espacio cuando no hay un
+    control enfocado).
+  - Los enlaces con hash (#planes, #cotizador…) y la vuelta desde el detalle de
+    un plan respetan la posición exacta.
+
+4.6 Cotizador (capítulo 04)
+  Variables reales del proyecto:
+    - Plan base (Esencial / Intermedio / Élite).
+    - Sedes o puntos de venta (1 a 6, +$1.400.000 cada una).
+    - Configuradores 3D (1 a 5; el plan incluye 1, 3 o 5; cada uno adicional
+      suma $1.900.000).
+    - Módulo de IA con escalera piloto (−10 % / −12 % / −15 % sobre el módulo).
+      El descuento de $1.000.000 por integrarlo al plan se retiró: el módulo se
+      cobra completo y el Agéntico queda en $16.380.000.
+  Calcula total, desglose línea por línea, mantenimiento, infraestructura y
+  comparación con mercado; el botón arma el mensaje de WhatsApp.
+
+  El cuadro "Tu cotización" es PEGAJOSO: se queda fijo arriba mientras se
+  recorren los cinco pasos del formulario (position: sticky). Si la pantalla es
+  muy baja, el propio cuadro hace scroll interno.
+
+4.7 Portafolio (capítulo 10) y Contacto (capítulo 11)
+  Nueve muestras reales con vista previa al pasar el cursor; la tarjeta del
+  chatbot reproduce el mini tutorial de acceso al panel (admin / 123) hasta el
+  dashboard. Debajo, el bloque de cierre con WhatsApp, correo y condiciones.
+
+
+5. DISEÑO DE LAS CARDS DE PLANES (capítulo 03)
+--------------------------------------------------------------------------------
+Las cards dejaron de ser tarjetas de SaaS y pasaron a leerse como CARTELES de
+subasta ganadera. Cada plan tiene material, arte, marco y ornamento propios:
+
+  ESENCIAL "cartel de papel"
+    Papel envejecido (textura generada, sin ruido de fondo) con marco de sello
+    doble y tinta sepia. El arte es el grabado del vaquero que enlaza, sacado de
+    la referencia que mandó el cliente, remontado sobre el papel y enmarcado con
+    una línea de tinta. El precio va dentro de un recuadro tipo estampa.
+    Ornamento al pasar el cursor: alambre de púas que se dibuja y herradura de
+    agua. CTA en tinta oscura con letra crema.
+
+  INTERMEDIO "cartel de cuero"
+    Cuero oscuro con veta, costura punteada, remaches en las cuatro esquinas y
+    marco interior. El arte es el grabado del jinete de la referencia, sobre un
+    resplandor cálido. Precio sobre fondo de cuero. Ornamento: lazo que se
+    dibuja alrededor del emblema y espiga de trigo.
+
+  ÉLITE "cartel de oro y fuego"
+    Negro con resplandor dorado arriba y brasa abajo, doble línea de oro,
+    filigrana en las esquinas, laurel sobre el título y destello que recorre la
+    tarjeta. El arte es el toro frente al vaquero de la referencia, en duotono
+    oro. El precio va en una placa negra con borde de oro y dos calaveras de res
+    a los lados (SVG propio). Ornamento: chispas que laten.
+
+  AGÉNTICO "marco tech-agro"
+    Es el que más destaca: banda de arte a todo el ancho con la escena agro-tech
+    de la referencia (vaquero con tablet, drones, hologramas, ganado y toro) en
+    duotono turquesa, con líneas de barrido. Marco con esquinas de circuito
+    (turquesa arriba, oro abajo), red neuronal que pulsa sola, brasas que suben
+    y el indicador "COMBO · ÉLITE + IA" con latido.
+
+ICONOS DE CADA PLAN (arte definitivo del cliente)
+Cada plan lleva el icono que el cliente eligió, recortado del arte que envió y
+centrado en el emblema redondo de 40 px:
+  - Esencial ....... vaquero en caballo encabritado con el lazo girando. Se
+                     convirtió la silueta negra en tinta oscura para el emblema
+                     claro del papel (y en una versión crema para el sello de
+                     la ficha, que va sobre fondo oscuro).
+  - Intermedio ..... herradura de cobre con remaches.
+  - Élite .......... calavera de toro (cuernos, hueso y sombras del arte).
+  - Agéntico ....... cerebro de IA en neón con la sigla "AI".
+Los cuatro son PNG de 256x256 con fondo transparente, generados a partir de las
+imágenes del cliente: se quita el fondo blanco (o se calcula el alfa por brillo
+en el caso del neón), se recorta al contenido y se centra en un lienzo cuadrado.
+Archivos: icon-esencial.png, icon-esencial-claro.png, icon-intermedio.png,
+icon-elite.png e icon-agentico.png, todos en assets/img/planes.
+Los mismos iconos se usan en el sello de forja de las páginas de detalle.
+
+CARD AMPLIADA (clic en una card)
+Al hacer clic en cualquier card del capítulo de planes, la card sale de la
+grilla y se centra en pantalla con todo su contenido visible; el resto de la
+página queda desenfocado (backdrop-filter: blur 14 px). El arte de la card se
+muestra completo (object-fit: contain) para que no quede recortado, y el marco
+dorado, las calaveras y el precio se ven en grande.
+  - La animación de entrada y salida es un FLIP (se mide el hueco original y la
+    card crece desde ahí), con un tope de tiempo por si la pestaña queda en
+    segundo plano.
+  - Se cierra con clic fuera, con la X, con Esc o al cambiar de capítulo, y la
+    card vuelve a su sitio.
+  - Mientras está abierta, el scroll de la página se bloquea (clase seq-locked).
+  - Los enlaces y botones de la card (ver detalle, cotizar) siguen funcionando:
+    el visor sólo se abre cuando el clic no es sobre un enlace.
+
+CALAVERAS DE RES (recortadas de la referencia del cliente)
+Se recortó la calavera del cartel "AGRO IA" (alfa por luminancia, borde
+desvanecido y mezcla de pantalla) y se usa en tres sitios:
+  - Emblema junto al nombre del plan: Élite (hueso) y Agéntico (tintada en
+    turquesa). Los otros dos planes conservan la herradura y el lazo, que
+    también salen de las referencias.
+  - Placa de precio del Élite: una calavera a cada lado del valor.
+  - Al pasar el cursor: dos calaveras grandes asoman en las esquinas
+    superiores de Intermedio, Élite y Agéntico, sobre la banda de arte, igual
+    que los cráneos que enmarcan el cartel original. Entran desde arriba con
+    una rotación leve y quedan al 72% (45% en Intermedio).
+  - Con la card ampliada las DOS calaveras se mueven: entran con la misma
+    animación (0,75 s, desde arriba y rotadas, cada una con su espejo) y después
+    flotan en bucle (5,5 s, ±7 px). Antes la derecha quedaba clavada porque el
+    visor solo le aplicaba el espejo y no la animación; se corrigió con
+    keyframes propios para la izquierda y para la derecha (skullInL/R y
+    skullFloatL/R). Con prefers-reduced-motion quedan quietas y visibles.
+  - Y ocupan bien el espacio del visor: el alto de cada calavera se calcula con
+    el alto real de la banda de arte (js/plan-zoom.js deja ese alto en la
+    variable --pz-art-h y el CSS las escala al 92% con los pies dentro del
+    marco). Así en Élite e Intermedio quedan de 155x212 px sobre una banda de
+    230 y en el Agéntico se ajustan a su banda. Antes medían siempre 96x131 y
+    en el visor se veían chicas y cortadas por el borde de la card.
+  - La banda de arte del Agéntico (arte de 1200x188, muy apaisado) se quedaba en
+    98 px de alto dentro del visor, como una tira; ahora tiene 172 px y la
+    imagen se centra sin recortarse (object-fit contain), así las calaveras
+    enmarcan el arte en vez de taparlo.
+
+Todos los carteles comparten:
+  - Banda de arte arriba, a sangre (como el cartel impreso), con viñeta y zoom
+    suave al pasar el cursor.
+  - Placa de precio: COP grande + conversion al dólar al otro lado
+    ("COP $ 9.900.000            / US$ 2.475").
+  - Capa de grano de película sobre toda la tarjeta (unifica foto, papel y
+    cuero) y marco interior de 7 px con el material de cada plan.
+
+MARCOS QUE APARECEN AL PASAR EL CURSOR (cap. 06)
+Las cards llevan el contorno de las tarjetas de referencia, pero sólo se enciende
+cuando el cursor entra en el plan (opacidad 0 -> 1 en .45 s, con un zoom de
+1,4% a 1). Cada plan tiene su propio marco, tomado de su referencia:
+  - ESENCIAL: doble filete de tinta sepia (línea exterior + filete crema
+    interior) y sombra calida, como el marco de sello del cartel de papel.
+  - INTERMEDIO: filete de cuero con cuatro remaches en las esquinas y una soga
+    trenzada cruzada arriba, que es el remate del cartel de cuero.
+  - ÉLITE: doble filete de oro con halo calido y una tachuela dorada en rombo
+    al centro del borde superior.
+  - AGÉNTICO: esquinas de circuito abiertas (turquesa arriba, oro abajo) sobre
+    filete turquesa, que es el marco tech del cartel AGRO IA.
+  Ademas de esos marcos, cada plan conserva sus ornamentos propios dibujados en
+  SVG (alambre de púas, lazo, chispas, red neuronal) y las calaveras de res.
+
+HUMO EN PANTALLA COMPLETA (cap. 06)
+El humo ya no vive dentro de las tarjetas: es una capa fija (.plans-fog) al pie
+de la ventana, asi que sube por las esquinas inferiores de la PANTALLA mientras
+se recorre un plan, y queda por debajo del texto y de los botones del capitulo.
+  - Solo humean Intermedio, Élite y Agéntico; Esencial no lleva humo porque la
+    niebla lavaba el papel claro.
+  - Se compone de tres cosas: dos velos con textura de humo (assets/img/planes/
+    smoke.png generado con ruido fBm y usado como mascara, teñido con el color
+    del plan), seis bocanadas difusas (blur 48 px) y dos halos en las esquinas
+    que laten. Todo con mix-blend-mode screen, sin canvas ni video.
+  - El color del humo cambia con el plan: ambar (Intermedio), oro (Élite),
+    turquesa (Agéntico).
+  - El script js/planes-fx.js es el que enciende la capa al entrar en una card
+    (mouseenter / focusin) y la apaga al salir, al cambiar de capitulo
+    (evento seqarrive) o al hacer scroll o toque.
+
+Con "prefers-reduced-motion" o en pantallas táctiles (sin hover) los ornamentos
+se muestran quietos y visibles, el humo se oculta y el arte no se amplía.
+
+ARCHIVOS NUEVOS (assets/img/planes, 515 KB en total)
+  art-esencial.jpg      grabado del vaquero sobre papel
+  art-intermedio.jpg    grabado del jinete sobre cuero
+  art-elite.jpg         toro y vaquero en duotono oro
+  art-agentico.jpg      escena agro-tech a lo ancho (1200x188)
+  tex-paper.jpg         papel envejecido generado (sin texto)
+  tex-leather.jpg       cuero oscuro generado
+  tex-grain.png         grano neutro para la capa de película
+  orn-skull.png         calavera de res recortada de la referencia (hueso/oro)
+  orn-skull-ia.png      la misma calavera tintada en turquesa para el Agéntico
+  smoke.png             textura de humo (ruido fBm) usada como máscara del velo
+
+
+5.5 PÁGINAS DE DETALLE DE CADA PLAN (planes/*.html)
+Se rehicieron con la estructura del proyecto de referencia pero manteniendo la
+estética agropecuaria. Ahora cada ficha tiene:
+  - PORTADA en dos columnas: el texto a la izquierda y un SELLO DE FORJA a la
+    derecha (aro con anillos girando, el icono del plan al centro, halo que
+    respira y chispas que suben). El color del sello cambia por plan.
+  - CHISPAS DE FONDO: un canvas fijo dibuja ascuas que suben en bucle, con el
+    color del plan. Se pausa cuando la pestaña queda en segundo plano y se
+    apaga con prefers-reduced-motion.
+  - DEMO DEL PLAN ("Asi funciona"): cada ficha explica con una maqueta animada
+    lo que ese plan hace de verdad, y no lo de los otros:
+      ESENCIAL   editor de sigla: la sigla se escribe, aparece en la placa con
+                 la vista espejada, se elige material y sale el precio. 2D.
+      INTERMEDIO vectorizacion 2D del logo: las lineas se trazan sobre una
+                 grilla, con la paleta de materiales al lado. 2D primero, luego
+                 los tres configuradores.
+      ELITE      visor 3D: la pieza gira sobre su eje (cubo en perspectiva) y
+                 los materiales se van seleccionando uno por uno (PBR).
+      AGENTICO   la conversacion del agente: el cliente manda una foto, el
+                 agente responde, devuelve tres propuestas, entrega el PDF de la
+                 cotizacion, agenda la visita y al final se mueven las metricas
+                 (conversaciones, leads, cotizaciones, cierres). Se repite en
+                 bucle y se detiene cuando la seccion sale de pantalla.
+  - PROCESOS CLAVE: cuatro tarjetas por plan, escritas segun lo que ese plan
+    entrega (no se repiten entre planes), cada una con su micro-demo animada en
+    CSS: dado 3D, barras de dashboard, señales de pago, barrido de escaneo y
+    burbujas de conversacion.
+  - Los bloques que ya existían (qué incluye, cómo se construye, entregables,
+    qué no incluye y add-ons) con aparición suave al hacer scroll.
+  - MUESTRAS: dos proyectos desplegados por plan y acordes a lo que ese plan
+    resuelve, con captura real y enlace:
+      ESENCIAL   Metro Cuadrado (panel de gestion) y Demo Progreso (metricas).
+      INTERMEDIO Fundaserinco (sitio por secciones, arte 2D) y Lenesens.
+      ELITE      LuxeGrip (configurador 3D de marca) y Personalizacion Motos.
+      AGENTICO   Chatbot Agentico (IA) y su panel de conversaciones.
+  - CIERRE con llamada a la acción (WhatsApp y correo) antes del pie.
+Si el JavaScript no carga, todo el contenido se ve igual (la animación de
+aparición solo se activa cuando el script marca el body con "js-reveal").
+
+5.6 LOGO DE MARCA Y FAVICON
+Se usó el arte entregado por el cliente (el escudo del toro con la herradura, el
+becerro y el lazo sobre negro) y se prepararon tres piezas en assets/img/brand/:
+
+  escudo-luxegrip.png    113x128  33 KB  El escudo solo, fondo transparente.
+                                          Va en la barra superior de las cuatro
+                                          fichas de plan, a 30 px de alto,
+                                          junto al texto "LuxeGrip · Propuesta".
+  logo-luxegrip.png      144x200  60 KB  El logo completo (escudo + "LUXE GRIP
+                                          AND" / "CATTLE BRAND" curvos), fondo
+                                          transparente. Va en el pie de cada
+                                          ficha, a 78 px de alto.
+  favicon.ico                    6,7 KB  Íconos 16, 32 y 48 px en un solo .ico.
+  favicon-32.png                 2,1 KB  PNG para navegadores que lo prefieren.
+  apple-touch-icon.png 180x180   37 KB   Ícono para iOS / pantalla de inicio.
+
+Cómo se hizo el recorte: el PNG original venía con fondo negro puro; se detectó
+ese fondo por relleno desde los bordes (solo píxeles casi negros, umbral de
+luminancia 7 de 255) y se volvió transparente con un suavizado de 0,7 px en el
+borde. Así el interior del escudo (cuero y sombras) queda opaco y el logo se ve
+igual de rico sobre el fondo oscuro del sitio, sin el rectángulo negro.
+Ojo: los favicons NO son transparentes a propósito. Llevan una placa oscura
+(#080605) con un halo cálido al centro, para que el escudo dorado se lea igual
+en barras de pestañas claras y oscuras.
+
+En el <head> de las cinco páginas quedó:
+  <link rel="icon" href="…/assets/img/brand/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="…/favicon-32.png">
+  <link rel="apple-touch-icon" href="…/apple-touch-icon.png">
+Se eliminó el favicon.svg anterior, que ya no se usa.
+
+Si algún día entregan el logo en vector (SVG o AI), basta reemplazar
+escudo-luxegrip.png y logo-luxegrip.png conservando los nombres y el tamaño
+declarado en el HTML (width/height) para que no salte el layout.
+
+6. CONTENIDO COMERCIAL (precios y criterio)
+--------------------------------------------------------------------------------
+TODOS los importes del sitio se muestran en pesos con su equivalente en dólares
+al lado, con el formato "COP / US$", a una tasa fija de 4.000 COP por dólar.
+Así se lee en la portada, en los cuatro carteles de plan, en el cotizador, en
+las tablas de desglose, en mantenimiento, infraestructura, comparativa, precio
+justo y en las cuatro fichas de plan. Ejemplos:
+  $3.900.000 / US$ 975      $9.900.000 / US$ 2.475     $16.380.000 / US$ 4.095
+  $1.190.000 / US$ 297,50   $90.000 / US$ 22,50         ≈ $130 / US$ 0,03
+Los importes por unidad (menos de US$ 20) llevan centavos para no redondear a
+cero, y los negativos heredan el signo (−$720.000 / US$ −180).
+El cotizador calcula el dólar en vivo con la misma tasa (js/cotizador.js), así
+que al cambiar de plan, sedes, configuradores o módulo de IA los dos valores se
+mueven juntos.
+
+Precios ajustados al alza frente a la propuesta de motos, porque allí el alcance
+se apretó demasiado y el margen no era justo. Aquí el alcance es mayor (cinco
+configuradores 3D, no uno) y el precio lo refleja.
+
+DESCUENTO DEL 10% (PILOTO A) = REFERIDO
+El −10% del módulo de IA no es un descuento comercial suelto: se otorga porque
+la propuesta llegó referida por una persona de confianza. Así se explica en
+todos los sitios donde aparece:
+  - Cotizador: la etiqueta del bloque dice "el −10% es por referido", el chip
+    del Piloto A remata con "por referido" y el texto de apoyo explica que el
+    −10% se otorga por venir recomendado; el desglose de líneas lo repite.
+  - Tabla del Agéntico (capítulo 05): la fila del descuento dice
+    "−10% por referido (persona de confianza)" y la escalera piloto marca el
+    tramo A como "−10% referido".
+  - Tarjeta del Agéntico en el capítulo 03: "Piloto −10% (referido) a −15%".
+  - Ficha del plan Agéntico (planes/agentico.html): la escalera y la nota al pie
+    lo indican con todas las letras.
+Los tramos B (−12%) y C (−15%) siguen siendo condiciones de pago y velocidad
+(pago 40/30/30 y 50/50, insumos y validaciones en 48 h).
+
+  Plan Esencial     $ 3.900.000   1 configurador 3D · links de pago · 3-4 sem
+  Plan Intermedio   $ 6.400.000   3 configuradores · webhook · bandeja · 5-6 sem
+  Plan Élite        $ 9.900.000   5 configuradores · PBR · dashboard · 7-9 sem
+  Módulo de IA      $ 7.200.000   valor real (con piloto A queda en $6.480.000)
+  Combo Agéntico    $16.380.000   Élite + IA · 10-12 sem
+
+  Sede o punto de venta adicional ......... $ 1.400.000
+  Configurador 3D adicional ............... $ 1.900.000
+  Animación 3D de producto (5-8 s) ........ $ 1.500.000
+  Fotografía de producto en set ........... $    90.000 / pieza
+
+  Mantenimiento:  Base $390.000/mes · Full $690.000/mes ·
+                  con IA $1.190.000/mes (hasta 8.000 conversaciones)
+  Infraestructura: ≈ $190.000/mes por sede (Vercel + Postgres + dominio)
+  Forma de pago:  50 % inicio · 30 % revisión de mitad · 20 % contra entrega
+  Vigencia:       30 días calendario
+
+Todos los desgloses de Inversión suman exactamente el precio del plan,
+verificado ítem por ítem.
+
+CONVERSIÓN A DÓLARES
+Cada precio muestra su equivalente en dólares al otro lado de la línea, con la
+barra: "COP $ 9.900.000            / US$ 2.475". Se usa una tasa de referencia
+de $4.000 COP por dólar:
+
+   Plan Esencial    US$   975        Sede adicional     US$  350
+   Plan Intermedio  US$ 1.600        Configurador extra US$  475
+   Plan Élite       US$ 2.475        Mantenimiento      US$ 98 / 173 / 298
+   Combo Agéntico   US$ 4.095
+
+La tasa vive en dos sitios y hay que moverla junta si cambia:
+  - js/cotizador.js, constante USD_RATE (calcula la conversion del total).
+  - el texto estatico de las cards (index.html) y de las fichas de /planes.
+
+
+7. VERIFICACIÓN REALIZADA
+--------------------------------------------------------------------------------
+Probado en navegador (Chromium, servidor local):
+
+  [OK] Carga de la página: sin errores de JavaScript en consola.
+  [OK] Pantalla de carga: se retira sola y cede el paso a la portada.
+  [OK] Pantalla de carga responsiva: probada a 1920x1080, 1440x900, 1366x768,
+       1024x768, 768x1024, 844x390, 390x844 y 320x568. La placa mantiene 16:9,
+       cabe completa en todas (sin recortes ni franjas) y no genera scroll
+       horizontal.
+  [OK] Logo de marca: escudo en la barra superior de las cuatro fichas (30 px),
+       logo completo en el pie (78 px) y favicons en las cinco páginas, todos
+       con respuesta 200 y sin errores de consola.
+  [OK] Portada: video, revelado del texto y contadores.
+  [OK] Capítulos con video (02 a 05): reproducen, retienen el scroll, revelan
+       texto y tarjetas, liberan; al subir corre el REV y vuelven a quedar
+       armados.
+  [OK] Portada rebobinada al volver desde el capítulo 02.
+  [OK] Navegación por puntos y flechas en los 11 capítulos (contador 01/11),
+       con las etiquetas nuevas: Inicio, Finalidad, Planes, Cotizador, Desglose,
+       Comparativa, Precio justo, Mantenimiento, Infraestructura, Portafolio y
+       Contacto.
+  [OK] Navegación en móvil igual que en escritorio: puntos verticales a la
+       izquierda y flechas con el contador "01 / 11" a la derecha, probada a
+       390x844, 844x390 y 768x1024, sin desbordes ni solapes con el contenido.
+  [OK] Descuento del 10% explicado como descuento por referido en el cotizador,
+       la tabla del Agéntico, la tarjeta del capítulo 03 y la ficha del plan.
+  [OK] Enlaces directos (#planes, #inversion, #cierre…): aterrizan exactos.
+  [OK] Salto manual entre capítulos (hash escrito, enlace interno o botón
+       atrás del navegador): al bajar corre el video de avance del capítulo
+       de destino y al subir corre su REV; el capítulo nunca se queda en
+       video sin contenido.
+  [OK] Vuelta desde el detalle de un plan: regresa a la posición exacta.
+  [OK] Cotizador: plan, sedes, configuradores, IA y piloto recalculan total,
+       desglose y enlace de WhatsApp.
+  [OK] Cuadro de cotización pegajoso: se mantiene a 64 px del borde superior
+       mientras se recorren los cinco pasos.
+  [OK] Cards de planes: los cuatro carteles cargan su arte (900x334 y
+       1200x188), el marco, la placa de precio y la conversion a dolares.
+  [OK] Cards de planes: los cuatro ornamentos se dibujan al pasar el cursor y
+       se muestran quietos en táctil / movimiento reducido.
+  [OK] Calaveras de la referencia: emblema de Élite y Agéntico, placa de precio
+       del Élite y ornamentos de hover en Intermedio, Élite y Agéntico.
+  [OK] Card ampliada: al hacer clic la card se centra, el fondo se desenfoca,
+       el arte se ve completo y se cierra con clic fuera, con la X, con Esc o al
+       cambiar de capítulo, devolviendo la card a su sitio.
+  [OK] Calaveras en la card ampliada: las dos (izquierda y derecha) entran con
+       animación y flotan en bucle; ninguna queda estática.
+  [OK] Calaveras en la card ampliada, tamaño: se miden contra la banda de arte
+       (155x212 en Élite e Intermedio con banda de 230; 87x119 en móvil) y
+       quedan dentro del marco sin cortarse en los cuatro planes.
+  [OK] Precios en pesos y dólares en las cinco páginas (portada, carteles,
+       cotizador, desglose, mantenimiento, infraestructura, comparativa y
+       fichas), con la conversión calculada en vivo en el cotizador.
+  [OK] Íconos de plan: lazo, herradura, calavera y dron, centrados y tintados
+       con el color de cada plan.
+  [OK] Páginas de detalle: sello de forja animado, chispas de fondo, procesos
+       con micro-demos, muestras con captura real y cierre con CTA; sin errores
+       de consola y sin desbordes horizontales.
+  [OK] Marcos al hover: los cuatro planes encienden su contorno al entrar el
+       cursor (doble filete de tinta, cuero remachado con soga, doble filete de
+       oro con tachuela, esquinas de circuito) y lo apagan al salir.
+  [OK] Humo al pie de la pantalla: capa fija fuera de las cards, con dos velos
+       de textura (smoke.png), seis bocanadas y dos halos en las esquinas; el
+       color cambia por plan (ámbar en Intermedio, oro en Élite, turquesa en
+       Agéntico). Esencial no humea para no lavar el papel claro.
+  [OK] Humo: se enciende con mouseenter/focusin y se apaga al salir, al cambiar
+       de capítulo (seqarrive) y al hacer scroll o toque, sin quedar pegado.
+  [OK] Cotizador: el total muestra su equivalente en dolares y se recalcula
+       con cada cambio de plan, sedes, configuradores, IA y piloto.
+  [OK] Páginas de detalle: la inversion de la ficha y del panel lateral llevan
+       el equivalente en dolares.
+  [OK] Responsive: 1280x800, 1239x732 y 390x844 sin desbordes horizontales;
+       en móvil los capítulos aterrizan alineados al borde superior aunque
+       su alto cambie al asentarse el contenido.
+  [OK] Páginas de detalle: cabecera, cifras, listas, tablas y columna lateral.
+  [OK] Todas las rutas internas (CSS, JS, videos, pósters, imágenes) resuelven.
+
+
+8. PENDIENTE / SIGUIENTES PASOS
+--------------------------------------------------------------------------------
+8.1 Bloqueantes para publicar (dependen del cliente)
+
+  1) CONTENIDO REAL DE PRODUCTO: lista de productos por línea con medidas,
+     materiales y precios; fotografías o renders; logo vectorial y manual de
+     marca si existe.
+  2) MODELOS 3D: una pieza física o modelo de referencia por producto para
+     construir cada configurador. Sin eso no se cierra el valor real.
+  3) DATOS DE CONTACTO: hoy están los del desarrollador (WhatsApp
+     +57 317 736 6474 y shoyosb@gmail.com). Confirmar con cuáles sale.
+  4) DOMINIO: definir .com o .com.co (cambia el costo de infraestructura).
+  5) VALIDACIÓN DE PRECIOS: si se mueve un plan hay que actualizar tres sitios:
+     las tarjetas de Planes, js/cotizador.js y el desglose correspondiente.
+
+8.2 Mejoras recomendadas (no bloqueantes)
+
+  6) Grabar un recorrido de 5 s por proyecto para que la vista previa del
+     portafolio sea video en lugar de captura.
+  7) Versión en inglés de la propuesta.
+  8) Analítica de qué plan se cotiza más y hasta dónde llega el visitante.
+  9) Revisión formal de accesibilidad (axe) y "skip link" al contenido.
+  10) Cortes verticales de los videos para redes (hoy todo es 16:9).
+
+8.3 Publicación
+
+  El proyecto es estático: no necesita build. Se sube tal cual a Vercel,
+  Netlify o GitHub Pages (carpeta raíz, index.html como entrada). Los planes
+  viven en /planes y usan rutas relativas.
+
+  Para revisarlo en local:
+
+      python -m http.server 8080
+
+  y entrar a http://localhost:8080
+
+  Importante: si se abre index.html con doble clic (file://), algunos
+  navegadores bloquean la reproducción de videos locales. En ese caso la
+  propuesta se ve completa (textos, planes, cotizador y portafolio funcionan),
+  pero sin los fondos animados. Con el servidor local o ya publicada, los
+  videos corren normalmente.
+
+
+9. NOTAS TÉCNICAS ÚTILES
+--------------------------------------------------------------------------------
+  - Para cambiar un precio: index.html (tarjetas y desglose) y
+    js/cotizador.js (PLANES / SEDE / CONFIG / IA_LISTA / PILOTOS). Las páginas
+    de /planes repiten el precio en la ficha superior, la tarjeta lateral y el
+    pie de cada bloque.
+  - Para cambiar el video de un capítulo: reemplazar el archivo en assets/video
+    con el mismo nombre y regenerar su póster. La mecánica se adapta a la
+    duración real del archivo.
+  - Los subtítulos ya no están en el video: los títulos son HTML (etiquetas
+    "sec-tag", "h2" y "mod-group-title"), editables.
+  - Caché: los CSS y JS llevan "?v=fecha" en la URL. Al publicar cambios hay
+    que subir ese número para que los navegadores no sirvan la versión vieja.
+  - El proyecto no tiene dependencias de JavaScript. Las tipografías (Cinzel e
+    Inter) vienen de Google Fonts por CDN.
+  - Navegación (js/deck.js): al entrar por enlace directo se fija la parada
+    pedida y se corrige hasta que la página queda en el destino; esa fijación
+    caduca a los ~6 s y además se cancela en cuanto el visitante pide otro
+    capítulo, para no arrastrarlo de vuelta.
+  - La dirección del salto (avance o REV) se decide por el orden de los
+    capítulos y no por el scroll: el navegador ya movió la página antes de
+    avisar el cambio de hash, así que el scroll no sirve para deducirla.
+  - Tras un salto se comprueba una vez que la parada quedó alineada; si el alto
+    de los capítulos anteriores cambió (típico en móvil), se recoloca.
+  - Las imagenes de las cards NO usan loading="lazy": el motor de escenas
+    reencuadra las secciones con transform y el navegador podia dejarlas sin
+    cargar. Son cuatro archivos de ~75 KB, no pesan.
+  - El arte de las cards se recorto de las referencias del cliente (grabados y
+    escena agro-tech), se limpió de texto quemado y se tiñó por plan. Las
+    texturas de papel y cuero son generadas para que no arrastren letras.
+
+
+10. REGISTRO DE DECISIONES
+--------------------------------------------------------------------------------
+  - Precios al alza frente a la propuesta de motos ("no ahorcarnos"), con la
+    misma estructura de 3 planes + combo IA.
+  - Se incluyeron las 4 páginas de detalle de plan.
+  - Se recortaron los subtítulos quemados y se usaron títulos HTML.
+  - Se eliminó WebM por ser más pesado que el MP4 en este material.
+  - Se dividió el primer video en portada + transición para no repetir metraje.
+  - Estructura en 11 capítulos: se adoptó el orden del proyecto de referencia
+    (planes, cotizador, desglose, comparativa, precio justo, mantenimiento,
+    infraestructura, portafolio y contacto) y se antepuso un capítulo de
+    finalidad que responde las dos preguntas del cliente. Las líneas de
+    producto no se perdieron: pasaron al capítulo de comparativa como fichas
+    de "qué se construye" debajo de la matriz.
+  - Cards de planes con material y ornamento propios por plan; el Agéntico es
+    el único con animación permanente para que se lea primero.
+  - El resumen de la cotización queda pegajoso para que el total acompañe la
+    lectura de los cinco pasos.
+  - Los enlaces con hash se tratan como navegación de deck (no como salto
+    nativo): el capítulo de destino corre su escena, en el sentido que
+    corresponda, y después entra el contenido.
+  - Las cards se resolvieron como carteles: el cliente mandó referencias con
+    grabados y marcos, y en vez de imitarlas con degradados se recortaron los
+    grabados reales y se montaron sobre materiales propios. Así el arte tiene
+    coherencia con el resto de la propuesta.
+  - Los íconos de los planes se dibujaron en SVG en vez de recortarlos de la
+    referencia: a 23 px las calaveras recortadas se veían sucias y fuera de
+    centro, y el dron o el lazo no existían como pieza aislada.
+  - La card ampliada se resuelve clonando la card dentro de un visor fijo (no
+    reposicionando la original): así no pelea con el deck, que bloquea y mueve
+    el scroll de la sección.
+  - Se retiró el descuento de $1.000.000 por integrar la IA al plan: el módulo
+    se cobra completo y el Agéntico queda en $16.380.000 (US$ 4.095).
+  - El humo es una capa fija al pie de la ventana, fuera de las tarjetas, para
+    que se lea en las esquinas de la pantalla y no como una mancha dentro de la
+    card. La forma sale de una textura de ruido (smoke.png) usada como mascara;
+    con degradados radiales solos parecia una mancha, no humo.
+  - Se descartó usar los ornamentos recortados (calaveras, filigrana, soga) como
+    imágenes: a ese tamaño arrastraban el fondo de la referencia y dejaban
+    costuras. Se resolvieron en vector.
+
+================================================================================
+FIN DEL DOCUMENTO
+================================================================================
